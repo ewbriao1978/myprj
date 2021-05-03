@@ -4,6 +4,18 @@
 <!-- Amount  -->
 <!-- Price -->
 
+
+<?php if (\Config\Services::validation()->getErrors()){
+?>
+<div class="alert alert-danger" role="alert">
+<?= \Config\Services::validation()->listErrors();?>
+</div>
+<?php
+}
+?>
+
+
+
 <div class= "col-4 mx-4">
     <form action ="/register" method="post">
         <div class="row mb-3">
