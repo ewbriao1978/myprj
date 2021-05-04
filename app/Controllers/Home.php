@@ -10,6 +10,7 @@ class Home extends BaseController
 
 	public function index()
 	{
+		$validation =  \Config\Services::validation();
 		$productModel = new ProductModel();
 		$data['productList'] = $productModel->getProduct();
 		echo view('common/header');
@@ -69,26 +70,35 @@ class Home extends BaseController
 
 	public function store_product()
 	{
-		$rules = [
+		/*$rules = [
 			'FormControlInputTitle' => 'required|min_length[3]',
 			'FormControlInputQuantity' => 'required|integer',
 			'FormControlInputPrice' => 'required|decimal'
-		];
+		];*/
 
+		$validation =  \Config\Services::validation();
+			
+		$validation->setRules([
+			'FormControlInputTitle' => ['label' => 'Title', 'rules' => 'required|min_length[3]'],
+			'FormControlInputQuantity' => ['label' => 'Quantity', 'rules' => 'required|integer'],
+			'FormControlInputPrice' => ['label' => 'Price', 'rules' => 'required|integer']
+			
+		]);
+		
+		
+
+		
 		$productModel = new ProductModel();
 
-		if ($this->validate($rules)) {
+		if ($validation->withRequest($this->request)->run())  {
 
 			$data = array(
 				'title' => $this->request->getVar('FormControlInputTitle'),
 				'description' => $this->request->getVar('FormControlInputDescription'),
 				'quantity' => $this->request->getVar('FormControlInputQuantity'),
 				'price' => $this->request->getVar('FormControlInputPrice')
-
-
-
 			);
-			// temporary
+			
 			$productModel->insertProduct($data);
 			$this->session->setFlashdata('messageRegisterOk', ' Product registered successful.');
 			return redirect()->to('/');
