@@ -38,6 +38,8 @@ $routes->post('/register','Home::store_product');
 $routes->get('/product/delete/(:num)','Home::delete_product/$1');
 $routes->get('/product/edit/(:num)','Home::edit_product_view/$1');
 $routes->post('/product/edit/(:num)','Home::update_product/$1');
+$routes->post('/search','Home::searchQueryHeader');
+$routes->get('/sorting','Home::sortingTitle');
 
 /*
  * --------------------------------------------------------------------

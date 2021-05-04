@@ -29,6 +29,15 @@ class ProductModel extends Model {
         return $this->delete($id);
     }
 
+    public function searchProductbySubstring($string){
+        return $this->like('title',$string)->findAll();
+    }
+
+    public function sorting($field,$order){
+        return $this->orderBy($field,$order)->findAll();
+    }
+
+
 }
 
 ?>
